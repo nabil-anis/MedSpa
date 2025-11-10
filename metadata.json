@@ -1,7 +1,5 @@
 {
-  "name": "Med Spa",
-  "description": "An AI assistant for Med Spa.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
+  "name": "ASAP AI",
+  "description": "An AI-powered assistant.",
+  "requestFramePermissions": []
 }

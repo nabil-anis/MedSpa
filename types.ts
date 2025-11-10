@@ -1,13 +1,64 @@
 import React from 'react';
+import { DISCIPLINES } from './constants';
 
-export interface Service {
-  // Fix: Changed JSX.Element to React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
-  icon: (props: React.ComponentProps<'svg'>) => React.ReactElement;
+export interface CriteriaAnalysis {
+  name: string;
+  score: number;
+  points: string[];
+}
+
+export interface OriginalityFinding {
   title: string;
   description: string;
 }
 
-export interface Testimonial {
-  quote: string;
-  author: string;
+export interface OriginalityReport {
+  score: number;
+  summary: string;
+  findings: OriginalityFinding[];
+}
+
+export interface DefensePrepQuestion {
+  number: number;
+  question: string;
+  expectedAnswerPoints?: string[];
+}
+
+export interface AnalysisResult {
+  projectTitle: string; 
+  overallScore: number;
+  summaryTitle: string;
+  discipline: string;
+  academicLevel: string;
+  criteriaAnalyses: CriteriaAnalysis[];
+  originalityReport: OriginalityReport;
+  overallAnalysis: string;
+  suggestedActions: string[];
+  defensePrepQuestions: DefensePrepQuestion[];
+}
+
+export interface ReportHistoryItem {
+  id: string;
+  projectTitle: string;
+  date: string;
+  result: AnalysisResult;
+}
+
+export interface UploadedFile {
+  name: string;
+  type: string;
+  content: string; // base64 encoded
+}
+
+export type DisciplineKey = keyof typeof DISCIPLINES;
+
+export interface AppConfig {
+  projectTitle: string;
+  discipline: DisciplineKey;
+  academicLevel: string;
+  evaluationContext: string;
+  projectURL: string;
+  evaluationCriteria: string[];
+  checkOriginality: boolean;
+  customDiscipline?: string;
 }

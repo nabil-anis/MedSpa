@@ -1,58 +1,90 @@
 import React from 'react';
-import { Service, Testimonial } from './types';
+import { 
+    FinanceIcon, ComputerScienceIcon, EngineeringIcon, BiologyIcon, LiteratureIcon, HistoryIcon, ArtIcon, 
+    PhysicsIcon, PharmacyIcon, LawIcon, GeneralIcon, ManagementIcon, EntrepreneurshipIcon, OtherIcon 
+} from './components/icons';
 
-export const NAV_LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#cta', label: 'Book Now' },
-];
+export const MIN_CRITERIA = 3;
+export const MAX_CRITERIA = 7;
 
-const FacialIcon = (props: React.ComponentProps<'svg'>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 9.75h.008v.008H9v-.008zm6 0h.008v.008H15v-.008z" />
-  </svg>
-);
-
-const LaserIcon = (props: React.ComponentProps<'svg'>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.562L16.25 21.75l-.648-1.188a2.25 2.25 0 01-1.47-1.47L12.964 18l1.188-.648a2.25 2.25 0 011.47-1.47L16.25 15l.648 1.188a2.25 2.25 0 011.47 1.47L19.536 18l-1.188.648a2.25 2.25 0 01-1.47 1.47z" />
-  </svg>
-);
-
-const InjectionIcon = (props: React.ComponentProps<'svg'>) => (
-  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-
-export const SERVICES: Service[] = [
-  {
-    icon: FacialIcon,
-    title: 'Signature HydraFacial',
-    description: 'A non-invasive treatment that deeply cleanses, exfoliates, extracts, and hydrates the skin.'
+export const DISCIPLINES = {
+  'Finance': {
+    name: 'Finance',
+    icon: FinanceIcon,
+    criteria: ['Quantitative Analysis', 'Market Understanding', 'Risk Assessment', 'Model Validity'],
   },
-  {
-    icon: LaserIcon,
-    title: 'Laser Genesis',
-    description: 'Stimulate collagen regrowth to reduce the appearance of fine lines, wrinkles, and redness.'
+  'Computer Science': {
+    name: 'Computer Science',
+    icon: ComputerScienceIcon,
+    criteria: ['Algorithm Efficiency', 'Code Quality & Style', 'System Architecture', 'Problem Solving'],
   },
-  {
-    icon: InjectionIcon,
-    title: 'Cosmetic Injectables',
-    description: 'Expertly administered fillers and neurotoxins to restore volume and smooth lines.'
+  'Electrical Engineering': {
+    name: 'Electrical Engineering',
+    icon: EngineeringIcon,
+    criteria: ['Circuit Design', 'Signal Processing', 'System Integration', 'Prototyping Quality'],
   },
-];
+  'Management': {
+    name: 'Management',
+    icon: ManagementIcon,
+    criteria: ['Strategic Analysis', 'Operational Efficiency', 'Leadership & Decision Making', 'Market Positioning'],
+  },
+  'Entrepreneurship': {
+    name: 'Entrepreneurship',
+    icon: EntrepreneurshipIcon,
+    criteria: ['Innovation & Viability', 'Business Model', 'Market Execution Plan', 'Scalability'],
+  },
+  'Biology': {
+    name: 'Biology',
+    icon: BiologyIcon,
+    criteria: ['Methodology', 'Data Interpretation', 'Contribution to Field', 'Ethical Considerations'],
+  },
+  'Literature': {
+    name: 'Literature',
+    icon: LiteratureIcon,
+    criteria: ['Thesis Strength', 'Textual Evidence', 'Critical Analysis', 'Prose & Style'],
+  },
+  'History': {
+    name: 'History',
+    icon: HistoryIcon,
+    criteria: ['Argument Strength', 'Primary Source Use', 'Historiographical Awareness', 'Narrative Cohesion'],
+  },
+  'Art': {
+    name: 'Art',
+    icon: ArtIcon,
+    criteria: ['Conceptual Strength', 'Technical Execution', 'Originality', 'Artist Statement Clarity'],
+  },
+  'Physics': {
+    name: 'Physics',
+    icon: PhysicsIcon,
+    criteria: ['Theoretical Soundness', 'Experimental Design', 'Data Analysis', 'Conclusion Validity'],
+  },
+  'Pharmacy': {
+    name: 'Pharmacy',
+    icon: PharmacyIcon,
+    criteria: ['Pharmacological Knowledge', 'Clinical Application', 'Patient Safety', 'Regulatory Adherence'],
+  },
+  'Law': {
+    name: 'Law',
+    icon: LawIcon,
+    criteria: ['Legal Reasoning', 'Case Law Application', 'Statutory Interpretation', 'Argument Structure'],
+  },
+   'General': {
+    name: 'General',
+    icon: GeneralIcon,
+    criteria: ['Clarity & Structure', 'Depth of Research', 'Originality', 'Critical Analysis'],
+  },
+  'Other': {
+    name: 'Other',
+    icon: OtherIcon,
+    criteria: ['Clarity & Structure', 'Depth of Research', 'Originality', 'Critical Analysis'],
+  },
+};
 
-export const TESTIMONIALS: Testimonial[] = [
-    {
-        quote: "The results from my treatment are phenomenal. I feel like I've turned back the clock ten years. The staff is incredibly professional and caring.",
-        author: "Jessica M."
-    },
-    {
-        quote: "I was nervous about getting injectables, but the team at Aura made me feel so comfortable. The results are natural and exactly what I wanted.",
-        author: "Sarah L."
-    },
-    {
-        quote: "A truly luxurious and relaxing experience from start to finish. My skin has never looked better. I can't recommend them highly enough.",
-        author: "Emily R."
-    }
+
+export const ACADEMIC_LEVELS = [
+  'Undergraduate (Year 1-2)',
+  'Undergraduate (Year 3-4)',
+  'Masters',
+  'PhD',
+  'Professional Development',
 ];

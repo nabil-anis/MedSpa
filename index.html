@@ -1,30 +1,105 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AURA</title>
+    <title>ASAP AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --background: #FFFFFF;
+        --background-secondary: #F7F7F8;
+        --background-tertiary: #E8E8ED;
+        --foreground: #1D1D1F;
+        --foreground-secondary: #8A8A8E;
+        --foreground-tertiary: #A1A1A6;
+        --border: #DCDCE0;
+        --input: #EFEFF1;
+        --ring: #0071E3;
+        --accent: #0071E3;
+        --accent-foreground: #FFFFFF;
+        --destructive: #FF3B30;
+        --score-high: #34C759;
+        --score-medium: #FF9500;
+        --score-low: #FF3B30;
+      }
+      html.dark {
+        --background: #000000;
+        --background-secondary: #1C1C1E;
+        --background-tertiary: #2C2C2E;
+        --foreground: #E5E5E7;
+        --foreground-secondary: #98989F;
+        --foreground-tertiary: #787880;
+        --border: #38383A;
+        --input: #1C1C1E;
+        --ring: #0A84FF;
+        --accent: #0A84FF;
+        --accent-foreground: #FFFFFF;
+        --destructive: #FF453A;
+        --score-high: #30D158;
+        --score-medium: #FFD60A;
+        --score-low: #FF453A;
+      }
       html {
         scroll-behavior: smooth;
       }
       body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
-      .animate-in {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      /* View Transitions API for theme toggle */
+      @keyframes reveal-in {
+        from { clip-path: circle(0% at var(--x) var(--y)); }
+        to { clip-path: circle(150% at var(--x) var(--y)); }
       }
-      .is-visible {
-        opacity: 1;
-        transform: translateY(0);
+      ::view-transition-new(root) {
+        animation: reveal-in 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: 0.5s;
+      }
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+      }
+      /* Premium Card Style */
+      .premium-card {
+        background-color: var(--background-secondary);
+        border: 1px solid var(--border);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+      }
+      .premium-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--ring);
+      }
+      html.light .premium-card:hover {
+        box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.1);
+      }
+      html.dark .premium-card:hover {
+        box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Custom scrollbar styles */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
     </style>
      <script>
@@ -33,38 +108,14 @@
         theme: {
           extend: {
             fontFamily: {
-              'sans': ['Inter', 'sans-serif'],
-              'serif': ['Playfair Display', 'serif'],
-            },
-            colors: {
-              // Light Mode (Apple-inspired)
-              'light-bg': '#F5F5F7',
-              'light-text': '#1D1D1F',
-              'light-text-secondary': '#86868B',
-              'light-card': '#FFFFFF',
-              'light-accent': '#0071E3',
-              'light-accent-hover': '#0077ed',
-
-              // Dark Mode (Charcoal, Apple-inspired)
-              'dark-bg': '#0D0D0F',
-              'dark-text': '#E5E5E7',
-              'dark-text-secondary': '#98989F',
-              'dark-card': '#1C1C1E',
-              'dark-accent': '#0A84FF',
-              'dark-accent-hover': '#53b0ff',
-            },
-            boxShadow: {
-              'light': '0 10px 30px rgba(0,0,0,0.1)',
-              'dark': '0 10px 30px rgba(0,0,0,0.5)',
+              'sans': ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"'],
+              'inter': ['Inter', 'sans-serif'],
             },
             borderRadius: {
-              '4xl': '2rem',
+              '3xl': '1.5rem',
+              '2xl': '1rem',
             },
             keyframes: {
-              'aurora': {
-                'from': { backgroundPosition: '0% 50%' },
-                'to': { backgroundPosition: '100% 50%' },
-              },
               'fade-in': {
                 'from': { opacity: '0' },
                 'to': { opacity: '1' },
@@ -75,9 +126,8 @@
               }
             },
             animation: {
-              'aurora': 'aurora 20s ease-in-out infinite alternate',
-              'fade-in': 'fade-in 1s ease-out forwards',
-              'slide-up': 'slide-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+              'fade-in': 'fade-in 0.5s ease-out forwards',
+              'slide-up': 'slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
             }
           }
         }
@@ -88,12 +138,13 @@
   "imports": {
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
   }
 }
 </script>
 </head>
-  <body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-500">
+  <body class="bg-[--background] text-[--foreground] transition-colors duration-300">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
