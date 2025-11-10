@@ -238,7 +238,7 @@ const App: React.FC = () => {
       />
       <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
       
-      <main className="transition-all duration-300 ease-in-out">
+      <main className={`transition-all duration-500 ease-in-out ${isSidebarOpen ? 'md:ml-96' : 'ml-0'}`}>
          {!isSidebarOpen && (
             <button 
               onClick={() => setIsSidebarOpen(true)}
