@@ -1,0 +1,7 @@
+{
+  "name": "Med Spa",
+  "description": "An AI assistant for Med Spa.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
