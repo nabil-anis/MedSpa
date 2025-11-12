@@ -153,7 +153,7 @@ const ScoreGauge: React.FC<{score: number, size?: number, strokeWidth?: number}>
 const CriteriaCard: React.FC<{ criteria: CriteriaAnalysis }> = ({ criteria }) => (
     <div className="bg-[--background-secondary] border border-[--border] p-6 rounded-3xl">
         <div className="flex justify-between items-start">
-            <h3 className="font-semibold text-[--foreground] pr-4">{criteria.name}</h3>
+            <h3 className="font-semibold text-[--foreground] pr-2">{criteria.name}</h3>
             <ScoreGauge score={criteria.score} size={50} strokeWidth={5} />
         </div>
         <ul className="mt-4 space-y-2.5 text-sm text-[--foreground-secondary] list-disc pl-4">

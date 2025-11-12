@@ -1,13 +1,13 @@
 import React from 'react';
 
 export const SunIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-    <svg xmlns="http://www.w.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
     </svg>
 );
 
 export const MoonIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-    <svg xmlns="http://www.w.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
     </svg>
 );
@@ -84,17 +84,23 @@ export const ComputerScienceIcon = ({ className = "w-6 h-6" }: { className?: str
 );
 export const EngineeringIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-1.004 1.11-1.223l.11-.04c.542-.223 1.11-.223 1.652 0l.11.04c.55.22 1.02.68 1.11 1.223l.04.242c.11.648.33 1.252.61 1.808l.24.478c.45.897 1.1 1.666 1.89 2.28l.47.37c.62.49 1.25.71 1.88.61l.24-.04c.542-.09 1.004-.56 1.223-1.11l.04-.11c.223-.542.223-1.11 0-1.652l-.04-.11c-.22-.55-.68-1.02-1.223-1.11l-.242-.04c-.648-.11-1.252-.33-1.808-.61l-.478-.24c-.897-.45-1.666-1.1-2.28-1.89l-.37-.47c-.49-.62-.71-1.25-.61-1.88l.04-.24zM12 18a6 6 0 100-12 6 6 0 000 12z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 21v-1.5M15.75 3v1.5m0 15v1.5M12 4.5v-1.5m0 18v-1.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 7.5h6v9H9z" />
     </svg>
 );
 export const BiologyIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m-3-1l-3 1.091m0-3.273l3-1.091M5.25 6.091l3 1.091m0 0l3 1.091m-3-1.091l-3 1.091" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.25 4.5s-3 2.5-3 6.5s3 6.5 3 6.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.75 19.5s3-2.5 3-6.5s-3-6.5-3-6.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 7.25h5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 11h5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 14.75h5" />
     </svg>
 );
 export const LiteratureIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 19.5v-15A2.5 2.5 0 016.5 2H12v20H6.5a2.5 2.5 0 01-2.5-2.5z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2h5.5a2.5 2.5 0 012.5 2.5v15a2.5 2.5 0 01-2.5 2.5H12V2z" />
     </svg>
 );
 export const HistoryDisciplineIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
@@ -104,25 +110,24 @@ export const HistoryDisciplineIcon = ({ className = "w-6 h-6" }: { className?: s
 );
 export const ArtIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.18a14.98 14.98 0 00-5.84 7.38m5.84 2.58a14.98 14.98 0 00-5.84-2.58m12.12 0a14.98 14.98 0 01-5.84 2.58m5.84 0a14.98 14.98 0 01-5.84-2.58m5.84 0a14.98 14.98 0 01-5.84 2.58" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.25 21.75h5.5a.75.75 0 00.75-.75V11.5a3.5 3.5 0 00-7 0v9.5c0 .414.336.75.75.75z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 11.5V2.25m0 0a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z" />
     </svg>
 );
 export const PhysicsIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h11.25" />
-        <ellipse cx="12" cy="12" rx="8.25" ry="4.5" transform="rotate(45 12 12)" />
-        <ellipse cx="12" cy="12" rx="8.25" ry="4.5" transform="rotate(-45 12 12)" />
-        <circle cx="12" cy="12" r="1.5" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18h8" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 22h18" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 11.5a6 6 0 0112 0v3.5a6 6 0 01-12 0v-3.5z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 11.5V18" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v4" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10 3h4" />
     </svg>
 );
 export const PharmacyIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9.75h7.5v7.5h-7.5z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 17.25v-7.5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 12.75h4.5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3.75v16.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 21a5.25 5.25 0 005.25-5.25V8.25a5.25 5.25 0 00-10.5 0v7.5a5.25 5.25 0 005.25 5.25z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 8.25h16.5" />
     </svg>
 );
 export const LawIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
@@ -141,8 +146,8 @@ export const GeneralIcon = ({ className = "w-6 h-6" }: { className?: string }) =
 );
 export const ManagementIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962a3.75 3.75 0 015.25 0m-5.25 0a3.75 3.75 0 00-5.25 0m7.5-2.962c0-1.23.99-2.25 2.25-2.25S18 7.27 18 8.5m-7.5 2.962c0-1.23.99-2.25 2.25-2.25s2.25 1.02 2.25 2.25" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 2.25A.75.75 0 0110.5 3v1.5a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zm-3.75 9A.75.75 0 016.75 12v1.5a.75.75 0 01-1.5 0V12a.75.75 0 01.75-.75zm10.5 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V12a.75.75 0 01.75-.75z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962a3.75 3.75 0 015.25 0m-5.25 0a3.75 3.75 0 00-5.25 0m7.5-2.962c0-1.23-.99-2.25-2.25-2.25S18 7.27 18 8.5m-7.5 2.962c0-1.23.99-2.25 2.25-2.25s2.25 1.02 2.25 2.25M9 12.75a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.663c.11-.22.215-.441.315-.666v.004c.101-.226.206-.452.315-.675v-.003c.111-.225.215-.45.315-.674v.004c.101-.225.206-.45.315-.673v-.003c.11-.224.215-.448.315-.672v.003c.101-.224.206-.448.315-.672" />
     </svg>
 );
 export const EntrepreneurshipIcon = ({ className = "w-6 h-6" }: { className?: string }) => (

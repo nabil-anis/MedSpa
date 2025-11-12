@@ -173,6 +173,7 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
         || (config.discipline === 'Other' && !config.customDiscipline);
 
     const DisciplineIcon = DISCIPLINES[config.discipline as DisciplineKey]?.icon || GeneralIcon;
+    const disciplineHint = DISCIPLINES[config.discipline as DisciplineKey]?.uploadHint || 'Upload relevant documents for your field.';
 
     return (
         <>
@@ -299,7 +300,8 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
                                     <p className="text-sm text-[--foreground-secondary]">
                                         <span className="font-medium text-[--accent]">{files.length > 0 ? 'Add More Files' : 'Upload Project Files'}</span>
                                     </p>
-                                    <p className="text-xs text-[--foreground-tertiary]">{formatBytes(remainingSize)} remaining</p>
+                                    <p className="text-xs text-[--foreground-tertiary] px-4">{disciplineHint}</p>
+                                    <p className="text-xs text-[--foreground-tertiary] pt-1">{formatBytes(remainingSize)} remaining</p>
                                 </div>
                                 <input ref={fileInputRef} id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileChange} />
                             </div>
