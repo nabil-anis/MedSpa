@@ -140,8 +140,11 @@ const ScoreGauge: React.FC<{score: number, size?: number, strokeWidth?: number}>
                     style={{ transform: 'rotate(-90deg)', transformOrigin: '50% 50%' }}
                 />
             </svg>
-            <span className={`absolute inset-0 flex items-center justify-center font-bold tracking-tighter ${scoreColorClass}`} style={{ fontSize: size/4 }}>
-                {score}<span className="text-xs -translate-y-1">%</span>
+            <span className={`absolute inset-0 flex items-center justify-center font-bold tracking-tighter ${scoreColorClass}`} style={{ fontSize: size / 4 }}>
+                <span className="flex items-baseline">
+                    {score}
+                    <span className="text-[0.6em] font-semibold ml-0.5">%</span>
+                </span>
             </span>
         </div>
     );

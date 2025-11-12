@@ -70,6 +70,15 @@ const getMimeType = (fileName: string): string => {
   return mimeTypes[extension] || 'text/plain';
 };
 
+const formatBytes = (bytes: number, decimals = 2): string => {
+    if (bytes <= 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+};
+
 
 const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
     config, setConfig, files, setFiles, isAnalyzing, onSubmit, onReset,
@@ -79,6 +88,9 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileError, setFileError] = useState<string | null>(null);
+
+    const currentSize = files.reduce((total, file) => total + file.size, 0);
+    const remainingSize = MAX_TOTAL_FILE_SIZE_BYTES - currentSize;
 
     const handleConfigChange = (field: keyof AppConfig, value: any) => {
         setConfig(prev => ({ ...prev, [field]: value }));
@@ -179,7 +191,7 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
                                 <LogoIcon className="w-7 h-7 text-[--accent-foreground]" />
                             </div>
                             <div>
-                                <h1 className="text-3xl font-black tracking-tighter text-[--foreground] font-inter">ASAP AI</h1>
+                                <h1 className="text-3xl font-bold tracking-tight text-[--foreground]">ASAP AI</h1>
                                 <p className="text-xs font-medium tracking-wider text-[--foreground-tertiary] mt-1">by nbl</p>
                             </div>
                         </div>
@@ -287,6 +299,7 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
                                     <p className="text-sm text-[--foreground-secondary]">
                                         <span className="font-medium text-[--accent]">{files.length > 0 ? 'Add More Files' : 'Upload Project Files'}</span>
                                     </p>
+                                    <p className="text-xs text-[--foreground-tertiary]">{formatBytes(remainingSize)} remaining</p>
                                 </div>
                                 <input ref={fileInputRef} id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileChange} />
                             </div>
@@ -311,7 +324,14 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
                         <div className="space-y-2">
                             <button type="submit" disabled={isSubmitDisabled}
                                 className="w-full bg-gradient-to-br from-[--accent] via-[--accent] to-[#005cb8d9] text-[--accent-foreground] py-3 rounded-2xl transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg shadow-[--accent]/20 dark:shadow-[--accent]/10">
-                                {isAnalyzing ? 'Analyzing...' : 'Analyze Project'}
+                                {isAnalyzing ? (
+                                    <span className="inline-flex items-center">
+                                        Analyzing
+                                        <span className="animate-blink" style={{ animationDelay: '0.0s' }}>.</span>
+                                        <span className="animate-blink" style={{ animationDelay: '0.2s' }}>.</span>
+                                        <span className="animate-blink" style={{ animationDelay: '0.4s' }}>.</span>
+                                    </span>
+                                ) : 'Analyze Project'}
                             </button>
                             <button type="button" onClick={onReset}
                                 className="w-full text-[--foreground-secondary] py-2 rounded-2xl hover:bg-[--background-tertiary] active:bg-[--input] font-medium">

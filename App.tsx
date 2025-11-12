@@ -189,7 +189,7 @@ const App: React.FC = () => {
               2.  **Criteria-Based Scoring:** For each criterion, provide a score from 0-100 and 2-4 specific, constructive feedback points.
               3.  **Originality Report:** ${config.checkOriginality ? 'Assess the conceptual originality. Provide a score from 0-100, a summary, and identify any potential conceptual overlaps with existing known work, if applicable.' : 'Originality check was not requested.'}
               4.  **Suggested Actions:** List 3-5 concrete, actionable steps the author can take to improve the project.
-              5.  **Defense Preparation:** Generate probing questions to prepare the author for a project defense (viva). Group them into logical categories (e.g., Methodology, Implications, Limitations).
+              5.  **Defense Preparation:** Generate a comprehensive set of at least 15 probing questions to prepare the author for a project defense (viva). Group these questions into 3-4 logical categories (e.g., Methodology & Approach, Contribution & Implications, Limitations & Future Work). For EACH question, you MUST provide a brief but insightful 'answerOutline' containing 2-3 bullet points that guide the author on how to structure their response.
               
               **Output Format:**
               You MUST return your entire analysis in a single, valid JSON object that adheres to the provided schema. Do not include any markdown formatting or explanatory text outside of the JSON structure.
@@ -249,7 +249,7 @@ const App: React.FC = () => {
                     <button onClick={() => setIsConfigPanelOpen(true)} className="p-2">
                         <MenuIcon className="w-6 h-6" />
                     </button>
-                    <h1 className="text-xl font-bold tracking-tighter text-center flex-1">ASAP AI</h1>
+                    <h1 className="text-xl font-bold tracking-tight text-center flex-1">ASAP AI</h1>
                 </div>
                 <div className="flex-1 overflow-y-auto p-6 md:p-12">
                     {isAnalyzing ? <LoadingScreen /> : 
