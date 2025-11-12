@@ -1,6 +1,6 @@
 
+
 import React, { useState, useEffect } from 'react';
-// FIX: Correctly import GoogleGenAI and Type from @google/genai.
 import { GoogleGenAI, Type } from "@google/genai";
 import ConfigurationPanel from './components/ConfigurationPanel';
 import WelcomeScreen from './components/WelcomeScreen';
@@ -134,7 +134,7 @@ const App: React.FC = () => {
 
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const systemInstruction = `You are ASAP AI, a rigorous and exacting academic evaluation tool. Your purpose is to provide critical, objective, and unflinchingly honest feedback to help users achieve the highest standards of academic and professional excellence. Your tone should be formal, authoritative, and direct. Avoid praise, empathetic language, or softening of criticism. Focus on identifying weaknesses, logical fallacies, and areas for substantial improvement. All feedback must be constructive but delivered with an expectation of rigor. When generating defense prep questions, provide at least 15 challenging questions designed to probe the depths of the user's understanding.`;
+      const systemInstruction = `You are ASAP AI, a rigorous and exacting academic evaluation tool. Your purpose is to provide critical, objective, and unflinchingly honest feedback to help users achieve the highest standards of academic and professional excellence. Your tone should be formal, authoritative, and direct. Avoid praise, empathetic language, or softening of criticism. Focus on identifying weaknesses, logical fallacies, and areas for substantial improvement. All feedback must be constructive but delivered with an expectation of rigor. When generating defense prep questions, categorize them into logical groups (e.g., 'Methodology', 'Contribution', 'Future Work') and provide at least 15 challenging questions designed to probe the depths of the user's understanding. For each question, provide a comprehensive answer outline.`;
       
       const disciplineName = config.discipline === 'Other' ? config.customDiscipline : config.discipline;
       const textPrompt = `Project Title: ${config.projectTitle}. Academic Level: ${config.academicLevel}. Discipline: ${disciplineName}. Evaluation Context: ${config.evaluationContext}. Project URL: ${config.projectURL}. Please evaluate based on these criteria: ${config.evaluationCriteria.join(', ')}. Perform an originality check: ${config.checkOriginality}.`;
@@ -166,16 +166,54 @@ const App: React.FC = () => {
               originalityReport: { type: Type.OBJECT, properties: { score: { type: Type.INTEGER }, summary: { type: Type.STRING }, findings: { type: Type.ARRAY, items: { type: Type.OBJECT, properties: { title: { type: Type.STRING }, description: { type: Type.STRING } }, required: ["title", "description"] } } }, required: ["score", "summary", "findings"] },
               overallAnalysis: { type: Type.STRING },
               suggestedActions: { type: Type.ARRAY, items: { type: Type.STRING } },
-              defensePrepQuestions: { type: Type.ARRAY, description: "Generate at least 15 challenging questions designed to prepare the user for a viva or defense of their project.", items: { type: Type.OBJECT, properties: { number: { type: Type.INTEGER }, question: { type: Type.STRING }, expectedAnswerPoints: { type: Type.ARRAY, items: { type: Type.STRING } } }, required: ["number", "question"] } }
+              defensePrep: {
+                type: Type.ARRAY,
+                description: "Generate a list of question categories for a project defense. For each category, provide a name and a list of challenging questions. Each question must have a comprehensive answer outline.",
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    categoryName: { type: Type.STRING, description: "The name of the question category (e.g., 'Foundational Concepts', 'Methodology Critique')." },
+                    questions: {
+                      type: Type.ARRAY,
+                      items: {
+                        type: Type.OBJECT,
+                        properties: {
+                          number: { type: Type.INTEGER },
+                          question: { type: Type.STRING },
+                          answerOutline: { type: Type.ARRAY, items: { type: Type.STRING }, description: "Key points, concepts, and evidence to include in a strong answer." }
+                        },
+                        required: ["number", "question", "answerOutline"]
+                      }
+                    }
+                  },
+                  required: ["categoryName", "questions"]
+                }
+              }
             },
-            required: ["overallScore", "summaryTitle", "discipline", "academicLevel", "criteriaAnalyses", "originalityReport", "overallAnalysis", "suggestedActions", "defensePrepQuestions"]
+            required: ["overallScore", "summaryTitle", "discipline", "academicLevel", "criteriaAnalyses", "originalityReport", "overallAnalysis", "suggestedActions", "defensePrep"]
           }
         }
       });
 
-      // FIX: Access the text from the response and parse it as JSON.
-      const resultText = response.text;
-      const result = JSON.parse(resultText);
+      const responseText = response.text;
+      let sanitizedText = responseText.trim();
+      if (sanitizedText.startsWith("```json")) {
+        sanitizedText = sanitizedText.substring(7);
+        if (sanitizedText.endsWith("```")) {
+          sanitizedText = sanitizedText.substring(0, sanitizedText.length - 3);
+        }
+      }
+      sanitizedText = sanitizedText.trim();
+
+      let result;
+      try {
+        result = JSON.parse(sanitizedText);
+      } catch (parseError) {
+        console.error("Failed to parse JSON from model response:", sanitizedText);
+        console.error("Original model response:", responseText);
+        throw new Error("The AI returned an invalid or incomplete response. Please try again.");
+      }
+      
       const finalResult: AnalysisResult = { ...result, projectTitle: config.projectTitle, discipline: disciplineName || result.discipline };
       setAnalysisResult(finalResult);
       setAnalysisState('results');
@@ -183,8 +221,23 @@ const App: React.FC = () => {
       setIsSidebarOpen(false);
 
     } catch (e) {
-      console.error(e);
-      setError("An error occurred during analysis. Please check your connection or API key and try again.");
+      console.error("Analysis failed:", e);
+      let errorMessage = "An unknown error occurred. Please try again later.";
+      if (e instanceof Error) {
+          const lowerCaseMessage = e.message.toLowerCase();
+          if (lowerCaseMessage.includes('api key not valid') || lowerCaseMessage.includes('permission denied') || lowerCaseMessage.includes('authentication failed')) {
+              errorMessage = "Authentication failed. Please ensure your API key is correct, valid, and has the necessary permissions.";
+          } else if (lowerCaseMessage.includes('quota') || lowerCaseMessage.includes('billing')) {
+              errorMessage = "You may have exceeded your API quota or have a billing issue. Please check your Google Cloud project settings.";
+          } else if (lowerCaseMessage.includes('safety') || lowerCaseMessage.includes('blocked')) {
+              errorMessage = "The request was blocked due to the content safety policy. Please review your input and try again.";
+          } else if (lowerCaseMessage.includes("the ai returned an invalid")) {
+              errorMessage = e.message; // Keep the specific JSON parse error
+          } else {
+              errorMessage = "An error occurred during analysis. Please check your internet connection and try again.";
+          }
+      }
+      setError(errorMessage);
       setAnalysisState('welcome');
     }
   };

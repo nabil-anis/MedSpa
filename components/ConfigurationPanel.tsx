@@ -1,11 +1,10 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { AppConfig, DisciplineKey, UploadedFile } from '../types';
-import { ACADEMIC_LEVELS, DISCIPLINES, MAX_CRITERIA, MIN_CRITERIA } from '../constants';
+import { ACADEMIC_LEVELS, DISCIPLINES, MAX_CRITERIA, MIN_CRITERIA, MAX_TOTAL_FILE_SIZE_BYTES } from '../constants';
 import ThemeToggle from './ThemeToggle';
 import { 
     LogoIcon, XIcon, InfoIcon, HistoryIcon, 
     UploadCloudIcon, FileTextIcon, XCircleIcon, PlusCircleIcon, MinusCircleIcon,
-// FIX: Import GeneralIcon to resolve 'Cannot find name' error.
     GeneralIcon
 } from './icons';
 
@@ -35,6 +34,43 @@ const fileToBase64 = (file: File): Promise<string> => {
     });
 };
 
+const getMimeType = (fileName: string): string => {
+  const extension = fileName.split('.').pop()?.toLowerCase();
+  if (!extension) return 'text/plain'; // Default for files with no extension
+
+  const mimeTypes: Record<string, string> = {
+    // Text formats
+    'txt': 'text/plain',
+    'md': 'text/markdown',
+    'html': 'text/html',
+    'css': 'text/css',
+    'csv': 'text/csv',
+    // Document formats
+    'pdf': 'application/pdf',
+    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    // Image formats
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'png': 'image/png',
+    'gif': 'image/gif',
+    'webp': 'image/webp',
+    'svg': 'image/svg+xml',
+    // Code formats
+    'js': 'application/javascript',
+    'json': 'application/json',
+    'xml': 'application/xml',
+    'py': 'text/x-python',
+    'java': 'text/x-java-source',
+    'ts': 'text/typescript',
+    'tsx': 'text/tsx',
+  };
+
+  return mimeTypes[extension] || 'text/plain';
+};
+
+
 const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
     config, setConfig, files, setFiles, isAnalyzing, onSubmit, onReset,
     savedReportsCount, toggleHistory, toggleAbout, isOpen, setIsOpen,
@@ -42,6 +78,7 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
 }) => {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [fileError, setFileError] = useState<string | null>(null);
 
     const handleConfigChange = (field: keyof AppConfig, value: any) => {
         setConfig(prev => ({ ...prev, [field]: value }));
@@ -59,18 +96,39 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
-            const newFilesPromises = Array.from(e.target.files).map(async (file: File) => ({
+            setFileError(null);
+            const newSelectedFiles = Array.from(e.target.files);
+
+            const currentSize = files.reduce((total: number, file: UploadedFile) => total + file.size, 0);
+            const newFilesSize = newSelectedFiles.reduce((total: number, file: File) => total + file.size, 0);
+
+            if (currentSize + newFilesSize > MAX_TOTAL_FILE_SIZE_BYTES) {
+                const limitInMB = MAX_TOTAL_FILE_SIZE_BYTES / (1024 * 1024);
+                setFileError(`Total file size cannot exceed ${limitInMB}MB. Please remove some files or upload smaller ones.`);
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+                return;
+            }
+
+            const newFilesPromises = newSelectedFiles.map(async (file: File) => ({
                 name: file.name,
-                type: file.type,
+                type: file.type || getMimeType(file.name),
+                size: file.size,
                 content: await fileToBase64(file),
             }));
             const newFiles = await Promise.all(newFilesPromises);
             setFiles(prev => [...prev, ...newFiles]);
+
+            if (fileInputRef.current) {
+                fileInputRef.current.value = '';
+            }
         }
     };
 
     const removeFile = (fileName: string) => {
         setFiles(prev => prev.filter(f => f.name !== fileName));
+        setFileError(null);
     };
 
     const handleCriteriaChange = (index: number, value: string) => {
@@ -232,6 +290,9 @@ const ConfigurationPanel: React.FC<ConfigurationPanelProps> = ({
                                 </div>
                                 <input ref={fileInputRef} id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileChange} />
                             </div>
+                            {fileError && (
+                                <p className="mt-2 text-sm text-center text-[--destructive]">{fileError}</p>
+                            )}
                         </div>
 
                         <div className="flex items-center justify-between bg-[--input] p-3 rounded-2xl">

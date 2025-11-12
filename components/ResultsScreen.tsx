@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnalysisResult, CriteriaAnalysis, OriginalityReport, DefensePrepQuestion } from '../types';
+import { AnalysisResult, CriteriaAnalysis, OriginalityReport, DefensePrepQuestion, DefensePrepCategory } from '../types';
 import { InfoIcon, FileTextIcon } from './icons';
 
 
@@ -31,7 +31,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ result, projectTitle }) =
 
       <div key={activeView} className="animate-fade-in">
         {activeView === 'analysis' && <AnalysisView result={result} />}
-        {activeView === 'viva' && <VivaView questions={result.defensePrepQuestions} />}
+        {activeView === 'viva' && <VivaView categories={result.defensePrep} />}
       </div>
     </div>
   );
@@ -68,10 +68,17 @@ const AnalysisView: React.FC<{ result: AnalysisResult }> = ({ result }) => (
     </div>
 );
 
-const VivaView: React.FC<{ questions: DefensePrepQuestion[] }> = ({ questions }) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {questions.map((q, index) => (
-            <Flashcard key={index} question={q} />
+const VivaView: React.FC<{ categories: DefensePrepCategory[] }> = ({ categories }) => (
+    <div className="space-y-12">
+        {categories.map((category, index) => (
+            <div key={index}>
+                <h2 className="text-xl font-bold text-[--foreground] mb-4 border-b border-[--border] pb-2">{category.categoryName}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {category.questions.map((q, qIndex) => (
+                        <Flashcard key={qIndex} question={q} />
+                    ))}
+                </div>
+            </div>
         ))}
     </div>
 );
@@ -88,10 +95,10 @@ const Flashcard: React.FC<{ question: DefensePrepQuestion }> = ({ question }) =>
                 </div>
                 {/* Back */}
                 <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-[--accent]/5 p-6 rounded-3xl border border-[--accent]/20 flex flex-col justify-start cursor-pointer overflow-y-auto no-scrollbar">
-                     <h3 className="font-semibold text-sm text-[--accent]">Expected Answer Points</h3>
-                     {question.expectedAnswerPoints && question.expectedAnswerPoints.length > 0 ? (
+                     <h3 className="font-semibold text-sm text-[--accent]">Answer Outline</h3>
+                     {question.answerOutline && question.answerOutline.length > 0 ? (
                         <ul className="mt-3 space-y-2 text-xs text-[--foreground-secondary] list-disc pl-4">
-                            {question.expectedAnswerPoints.map((point, i) => <li key={i}>{point}</li>)}
+                            {question.answerOutline.map((point, i) => <li key={i}>{point}</li>)}
                         </ul>
                      ) : (
                         <p className="mt-3 text-xs text-[--foreground-secondary]">No specific points provided. Focus on a comprehensive answer.</p>

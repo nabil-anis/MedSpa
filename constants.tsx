@@ -1,11 +1,12 @@
 import React from 'react';
 import { 
-    FinanceIcon, ComputerScienceIcon, EngineeringIcon, BiologyIcon, LiteratureIcon, HistoryIcon, ArtIcon, 
+    FinanceIcon, ComputerScienceIcon, EngineeringIcon, BiologyIcon, LiteratureIcon, HistoryDisciplineIcon, ArtIcon, 
     PhysicsIcon, PharmacyIcon, LawIcon, GeneralIcon, ManagementIcon, EntrepreneurshipIcon, OtherIcon 
 } from './components/icons';
 
 export const MIN_CRITERIA = 3;
 export const MAX_CRITERIA = 7;
+export const MAX_TOTAL_FILE_SIZE_BYTES = 15 * 1024 * 1024; // 15 MB
 
 export const DISCIPLINES = {
   'Finance': {
@@ -45,7 +46,7 @@ export const DISCIPLINES = {
   },
   'History': {
     name: 'History',
-    icon: HistoryIcon,
+    icon: HistoryDisciplineIcon,
     criteria: ['Argument Strength', 'Primary Source Use', 'Historiographical Awareness', 'Narrative Cohesion'],
   },
   'Art': {

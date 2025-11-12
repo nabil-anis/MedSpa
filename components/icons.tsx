@@ -101,7 +101,7 @@ export const ShieldCheckIcon = ({ className = "w-5 h-5" }: { className?: string 
 // Discipline Icons
 export const FinanceIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 6h12l3-6H3zm0 6v6h18v-6" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
     </svg>
 );
 export const ComputerScienceIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -111,7 +111,7 @@ export const ComputerScienceIcon = ({ className = "w-5 h-5" }: { className?: str
 );
 export const EngineeringIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-        <circle cx="12" cy="12" r="3" /><path d="M12 2v2m0 16v2m8.5-10h2M1.5 12h2m6.5-8.5l-2 2M17.5 6.5l-2 2m0 9l2 2M6.5 17.5l2 2" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 15.75H3m18 0h-1.5M8.25 21v-1.5M15.75 3v1.5M15.75 21v-1.5M3.75 12h16.5M8.25 7.5h7.5v9h-7.5z" />
     </svg>
 );
 export const BiologyIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -124,7 +124,11 @@ export const LiteratureIcon = ({ className = "w-5 h-5" }: { className?: string }
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v2H6.5A2.5 2.5 0 0 1 4 16.5v-11A2.5 2.5 0 0 1 6.5 3H10v14" />
     </svg>
 );
-// FIX: Removed duplicate HistoryIcon.
+export const HistoryDisciplineIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3h7.5M3 3h1.5M3 7.5h1.5M3 12h1.5m-1.5 4.5h1.5M21 3h-1.5M21 7.5h-1.5M21 12h-1.5m-1.5 4.5h1.5M5.625 5.625h12.75v12.75H5.625V5.625Z" />
+    </svg>
+);
 export const ArtIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -152,7 +156,7 @@ export const GeneralIcon = ({ className = "w-5 h-5" }: { className?: string }) =
 );
 export const ManagementIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m-7.289 2.72a3 3 0 0 1-4.682-2.72 9.094 9.094 0 0 1 3.741-.479m7.289 2.72a8.97 8.97 0 0 1-7.289-2.72m0 0a8.97 8.97 0 0 1 7.289-2.72m-7.289 2.72c.266.059.537.11.815.154a3.371 3.371 0 0 0 5.658 0c.278-.044.549-.095.815-.154M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 0a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Z" />
     </svg>
 );
 export const EntrepreneurshipIcon = ({ className = "w-5 h-5" }: { className?: string }) => (

@@ -21,7 +21,12 @@ export interface OriginalityReport {
 export interface DefensePrepQuestion {
   number: number;
   question: string;
-  expectedAnswerPoints?: string[];
+  answerOutline: string[];
+}
+
+export interface DefensePrepCategory {
+  categoryName: string;
+  questions: DefensePrepQuestion[];
 }
 
 export interface AnalysisResult {
@@ -34,7 +39,7 @@ export interface AnalysisResult {
   originalityReport: OriginalityReport;
   overallAnalysis: string;
   suggestedActions: string[];
-  defensePrepQuestions: DefensePrepQuestion[];
+  defensePrep: DefensePrepCategory[];
 }
 
 export interface ReportHistoryItem {
@@ -47,6 +52,7 @@ export interface ReportHistoryItem {
 export interface UploadedFile {
   name: string;
   type: string;
+  size: number;
   content: string; // base64 encoded
 }
 
