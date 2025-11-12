@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnalysisResult, CriteriaAnalysis, OriginalityReport, DefensePrepQuestion, DefensePrepCategory } from '../types';
-import { InfoIcon, FileTextIcon } from './icons';
+import { InfoIcon, FileTextIcon, CheckCircleIcon } from './icons';
 
 
 interface ResultsScreenProps {
@@ -49,7 +49,7 @@ const SegmentedControl: React.FC<{ options: {label: string, value: string}[], ac
 
 const AnalysisView: React.FC<{ result: AnalysisResult }> = ({ result }) => (
     <div className="space-y-8">
-        <div className="premium-card p-6 rounded-3xl flex flex-col md:flex-row items-center gap-8">
+        <div className="bg-[--background-secondary] border border-[--border] p-6 rounded-3xl flex flex-col md:flex-row items-center gap-8">
             <ScoreGauge score={result.overallScore} size={160} strokeWidth={12} />
             <div className="text-center md:text-left">
                 <h2 className="text-2xl font-bold text-[--foreground]">{result.summaryTitle}</h2>
@@ -62,7 +62,7 @@ const AnalysisView: React.FC<{ result: AnalysisResult }> = ({ result }) => (
             {result.criteriaAnalyses.map(criteria => <CriteriaCard key={criteria.name} criteria={criteria} />)}
         </div>
         
-        {result.originalityReport.score > 0 && <OriginalityCard report={result.originalityReport} />}
+        {result.originalityReport && result.originalityReport.score > 0 && <OriginalityCard report={result.originalityReport} />}
 
         <InfoCard title="Suggested Actions" list={result.suggestedActions} icon={<InfoIcon/>} />
     </div>
@@ -148,7 +148,7 @@ const ScoreGauge: React.FC<{score: number, size?: number, strokeWidth?: number}>
 }
 
 const CriteriaCard: React.FC<{ criteria: CriteriaAnalysis }> = ({ criteria }) => (
-    <div className="premium-card p-6 rounded-3xl">
+    <div className="bg-[--background-secondary] border border-[--border] p-6 rounded-3xl">
         <div className="flex justify-between items-start">
             <h3 className="font-semibold text-[--foreground] pr-4">{criteria.name}</h3>
             <ScoreGauge score={criteria.score} size={50} strokeWidth={5} />
@@ -160,7 +160,7 @@ const CriteriaCard: React.FC<{ criteria: CriteriaAnalysis }> = ({ criteria }) =>
 );
 
 const OriginalityCard: React.FC<{ report: OriginalityReport }> = ({ report }) => (
-    <div className="premium-card p-6 rounded-3xl">
+    <div className="bg-[--background-secondary] border border-[--border] p-6 rounded-3xl">
        <div className="flex items-start gap-6">
            <div className="flex-shrink-0">
                 <h3 className="font-semibold flex items-center gap-2 text-[--foreground] mb-4"><FileTextIcon className="w-5 h-5 text-[--accent]" /> Originality Report</h3>
@@ -187,16 +187,17 @@ const OriginalityCard: React.FC<{ report: OriginalityReport }> = ({ report }) =>
     </div>
 );
 
-// FIX: Update the 'icon' prop type to allow 'className' to be passed via React.cloneElement, resolving the TypeScript error.
 const InfoCard: React.FC<{ title: string, content?: string, list?: string[], icon: React.ReactElement<{ className?: string }> }> = ({ title, content, list, icon }) => (
-    <div className="premium-card p-6 rounded-3xl">
+    <div className="bg-[--background-secondary] border border-[--border] p-6 rounded-3xl">
         <h3 className="font-semibold flex items-center gap-2 text-[--foreground]">{React.cloneElement(icon, { className: 'w-5 h-5 text-[--accent]' })} {title}</h3>
         {content && <p className="mt-4 text-sm text-[--foreground-secondary] leading-relaxed">{content}</p>}
         {list && (
             <ul className="mt-4 space-y-3 text-sm">
                 {list.map((item, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                        <span className="flex-shrink-0 mt-0.5 w-4 h-4 text-[--score-high]"><CheckCircleIcon /></span>
+                        <span className="flex-shrink-0 mt-0.5 w-4 h-4 text-[--score-high]">
+                            <CheckCircleIcon className="w-full h-full" />
+                        </span>
                         <span className="text-[--foreground-secondary]">{item}</span>
                     </li>
                 ))}
@@ -204,7 +205,5 @@ const InfoCard: React.FC<{ title: string, content?: string, list?: string[], ico
         )}
     </div>
 );
-
-const CheckCircleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-full h-full"><path fillRule="evenodd" d="M10 18a8 8 0 1 0 0 -16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" /></svg>;
 
 export default ResultsScreen;

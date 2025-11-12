@@ -57,14 +57,14 @@ const getMimeType = (fileName: string): string => {
     'gif': 'image/gif',
     'webp': 'image/webp',
     'svg': 'image/svg+xml',
-    // Code formats
-    'js': 'application/javascript',
+    // Code formats - Mapped to simpler types for broad compatibility
+    'js': 'text/plain',
     'json': 'application/json',
     'xml': 'application/xml',
-    'py': 'text/x-python',
-    'java': 'text/x-java-source',
-    'ts': 'text/typescript',
-    'tsx': 'text/tsx',
+    'py': 'text/plain',
+    'java': 'text/plain',
+    'ts': 'text/plain',
+    'tsx': 'text/plain',
   };
 
   return mimeTypes[extension] || 'text/plain';
