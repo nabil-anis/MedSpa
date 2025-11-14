@@ -6,7 +6,7 @@ import LoadingScreen from './components/LoadingScreen';
 import ResultsScreen from './components/ResultsScreen';
 import HistoryModal from './components/HistoryModal';
 import AboutModal from './components/AboutModal';
-import { MenuIcon } from './components/icons';
+import { SliderIcon } from './components/icons';
 import { AppConfig, AnalysisResult, UploadedFile, ReportHistoryItem, DisciplineKey } from './types';
 // FIX: Corrected typo from DISCIPLIPLINES to DISCIPLINES
 import { ACADEMIC_LEVELS, DISCIPLINES } from './constants';
@@ -43,6 +43,11 @@ const App: React.FC = () => {
         }
         const savedTheme = localStorage.getItem('asapai-theme') || 'dark';
         setTheme(savedTheme);
+        
+        if (window.innerWidth < 768) {
+            setIsConfigPanelOpen(false);
+        }
+
     }, []);
 
     useEffect(() => {
@@ -261,9 +266,18 @@ const App: React.FC = () => {
                 toggleTheme={toggleTheme}
             />
             <main className="flex-1 flex flex-col h-screen transition-all duration-500 ease-in-out">
+                 {!isConfigPanelOpen && (
+                    <button 
+                        onClick={() => setIsConfigPanelOpen(true)} 
+                        className="hidden md:block fixed top-6 left-6 z-50 p-3 bg-[--background-secondary] rounded-full shadow-lg border border-[--border] hover:bg-[--background-tertiary] transition-colors"
+                        aria-label="Open configuration panel"
+                    >
+                        <SliderIcon className="w-6 h-6" />
+                    </button>
+                )}
                 <div className="md:hidden flex-shrink-0 p-4 border-b border-[--border] flex items-center">
                     <button onClick={() => setIsConfigPanelOpen(true)} className="p-2">
-                        <MenuIcon className="w-6 h-6" />
+                        <SliderIcon className="w-6 h-6" />
                     </button>
                     <h1 className="text-xl font-bold tracking-tight text-center flex-1">ASAP AI</h1>
                 </div>
